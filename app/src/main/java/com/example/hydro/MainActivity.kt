@@ -1,5 +1,6 @@
 package com.example.hydro
 
+import WaterDialog
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -96,6 +97,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun SetupInput() { //isso aqui vai virar o dialog
         var text by remember { mutableStateOf("") }
+        var isDialogVisible by remember { mutableStateOf(false) }
 
         TextField(
             value = text,
@@ -108,9 +110,24 @@ class MainActivity : ComponentActivity() {
                 .padding(8.dp)
         )
 
-        Button(onClick = { viewModel.handleWaterValue(text.orEmpty().toFloat()) }, Modifier.width(300.dp)) {
+        Button(onClick = {
+//            viewModel.handleWaterValue(text.orEmpty().toFloat())
+            isDialogVisible = true
+        }, Modifier.width(300.dp)) {
             Text(text = "Clique aqui")
         }
+
+        WaterDialog(
+            showDialog = isDialogVisible,
+            onDismiss = {
+                isDialogVisible = false
+            },
+            onFloatValueSelected = { floatValue ->
+                viewModel.handleWaterValue(floatValue)
+                // Faça algo com o valor float selecionado aqui
+                // Por exemplo, envie-o para um ViewModel ou realize alguma ação com ele
+            }
+        )
     }
 
 
