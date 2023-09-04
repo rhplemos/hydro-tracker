@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize()
             ) {
                 SetupWaterIndicator(color = Color.Blue, progress = progress)
-                setupInput()
+                SetupInput()
             }
         }
     }
@@ -94,7 +94,7 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun setupInput() { //isso aqui vai virar o dialog
+    fun SetupInput() { //isso aqui vai virar o dialog
         var text by remember { mutableStateOf("") }
 
         TextField(
