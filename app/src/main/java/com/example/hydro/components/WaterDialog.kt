@@ -14,8 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.example.hydro.ui.theme.HydroTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +40,7 @@ fun WaterDialog(
 
             Column(
                 modifier = Modifier
-                    .padding(16.dp).background(Color.Blue)
+                    .padding(8.dp).background(Color.Blue)
             ) {
                 Text(
                     text = "Informe um valor float:",
@@ -103,3 +105,17 @@ fun WaterDialog(
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    HydroTheme {
+        WaterDialog(
+            true,
+            onDismiss = {},
+            onFloatValueSelected = { floatValue ->
+            }
+        )
+    }
+}
+
