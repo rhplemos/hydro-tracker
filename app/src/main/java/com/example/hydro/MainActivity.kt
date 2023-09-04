@@ -124,8 +124,6 @@ class MainActivity : ComponentActivity() {
             },
             onFloatValueSelected = { floatValue ->
                 viewModel.handleWaterValue(floatValue)
-                // Faça algo com o valor float selecionado aqui
-                // Por exemplo, envie-o para um ViewModel ou realize alguma ação com ele
             }
         )
     }
