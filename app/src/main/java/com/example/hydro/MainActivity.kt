@@ -9,15 +9,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -46,7 +42,7 @@ class MainActivity : ComponentActivity() {
             HydroTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.onPrimary
+//                    color = MaterialTheme.colorScheme.onPrimary
                 ) {
                     Greeting("Android", progress = progress)
                 }
@@ -55,8 +51,7 @@ class MainActivity : ComponentActivity() {
     }
 
     fun setupObservers() {
-        viewModel.uiState.waterValue.observe(this@MainActivity){
-
+        viewModel.uiState.waterValue.observe(this@MainActivity) {
         }
     }
 
@@ -72,7 +67,7 @@ class MainActivity : ComponentActivity() {
 
         ) {
             Text(
-                text = "Hello $name!",
+                text = "Water tracker",
                 modifier = modifier
             )
 
@@ -92,28 +87,17 @@ class MainActivity : ComponentActivity() {
         CustomProgressIndicator(color = Color.Blue, progress = progress)
     }
 
-
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun SetupInput() { //isso aqui vai virar o dialog
-        var text by remember { mutableStateOf("") }
+    fun SetupInput() {
         var isDialogVisible by remember { mutableStateOf(false) }
 
-        TextField(
-            value = text,
-            onValueChange = { newText ->
-                text = newText
+        Button(
+            onClick = {
+                isDialogVisible = true
             },
-            label = { Text("Label") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-        )
-
-        Button(onClick = {
-//            viewModel.handleWaterValue(text.orEmpty().toFloat())
-            isDialogVisible = true
-        }, Modifier.width(300.dp)) {
+            Modifier.width(300.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+        ) {
             Text(text = "Clique aqui")
         }
 
@@ -127,7 +111,6 @@ class MainActivity : ComponentActivity() {
             }
         )
     }
-
 
     @Preview(showBackground = true)
     @Composable
