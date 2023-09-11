@@ -2,6 +2,7 @@ package com.example.hydro.scenes.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.hydro.utils.formatToProgressIndicator
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class MainViewModel : ViewModel() {
@@ -15,7 +16,7 @@ class MainViewModel : ViewModel() {
     val uiState = MainUIState()
 
     fun handleWaterValue(liters: Float) {
-        _progress.value += liters
+        _progress.value += liters.formatToProgressIndicator()
     }
 
     sealed interface MainEvent {
