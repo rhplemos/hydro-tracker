@@ -1,4 +1,5 @@
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -6,18 +7,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.hydro.ui.theme.HydroTheme
+import com.example.hydro.utils.toStringOrEmpty
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,26 +40,30 @@ fun WaterDialog(
                 onDismiss()
             },
         ) {
-            var keyboardHeight by remember { mutableStateOf(0.dp) }
-
             Column(
                 modifier = Modifier
-                    .padding(8.dp).background(Color.Blue)
+                    .padding(8.dp)
+                    .background(Color.LightGray, shape = RoundedCornerShape(16.dp))
+                    .border(width = 2.dp, color = Color.Black, RoundedCornerShape(16.dp))
             ) {
                 Text(
-                    text = "Informe um valor float:",
-                    style = MaterialTheme.typography.labelLarge
+                    text = "Informe a quantidade:",
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.padding(16.dp)
                 )
 
                 OutlinedTextField(
-                    value = floatValue.toString(),
+                    value = floatValue.toStringOrEmpty(),
                     onValueChange = {
                         floatValue = it.toFloatOrNull() ?: 0f
                     },
                     modifier = Modifier
-                        .padding(8.dp)
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
                         .fillMaxWidth(),
-                    label = { Text("Valor float") },
+                    label = { Text("Água") },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Blue,
+                        unfocusedBorderColor = Blue),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done
                     ),
@@ -64,7 +72,7 @@ fun WaterDialog(
                             focusManager.clearFocus()
                         }
                     ),
-                    singleLine = true
+                    singleLine = true,
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -72,7 +80,7 @@ fun WaterDialog(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = keyboardHeight)
+                        .padding(16.dp)
                 ) {
                     Button(
                         onClick = {
@@ -82,7 +90,8 @@ fun WaterDialog(
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .weight(1f)
+                            .weight(1f),
+                        colors = ButtonDefaults.buttonColors(containerColor = Blue)
                     ) {
                         Text("Confirmar")
                     }
@@ -96,7 +105,8 @@ fun WaterDialog(
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .weight(1f)
+                            .weight(1f),
+                        colors = ButtonDefaults.buttonColors(containerColor = Blue)
                     ) {
                         Text("Cancelar")
                     }
